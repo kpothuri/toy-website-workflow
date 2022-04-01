@@ -1,0 +1,24 @@
+ResourceId        : /subscriptions/326d4d2f-4870-45f2-b2d7-feca7a38b1e9/resourceGroups/ToyWebsite
+
+$resourceGroupId = '/subscriptions/326d4d2f-4870-45f2-b2d7-feca7a38b1e9/resourceGroups/ToyWebsite'
+
+$azureContext = Get-AzContext
+$servicePrincipal = New-AzADServicePrincipal `
+-DisplayName ToyWebsiteWorkflow `
+-Role Contributor `
+-Scope $resourceGroupId
+
+$output = @{
+   clientId = $($servicePrincipal.ApplicationId)
+   clientSecret = $([System.Net.NetworkCredential]::new('', $servicePrincipal.Secret).Password)
+   subscriptionId = $($azureContext.Subscription.Id)
+   tenantId = $($azureContext.Tenant.Id)
+}
+$output | ConvertTo-Json
+
+{
+  "tenantId": "dcde8d90-9fa8-4b27-bf98-7789b7cfd18a",
+  "clientSecret": "",
+  "clientId": null,
+  "subscriptionId": "326d4d2f-4870-45f2-b2d7-feca7a38b1e9"
+}
