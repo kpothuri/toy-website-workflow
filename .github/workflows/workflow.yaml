@@ -51,7 +51,10 @@ jobs:
       name: Run what-if
       with:
         inlineScript: |
-          New-AzResourceGroupDeployment -Whatif -ResourceGroup ${{ env.AZURE_RESOURCEGROUP_NAME }} -TemplateFile ./deploy/main.bicep -environmentType ${{ env.ENVIRONMENT }}
+          az deployment group what-if \
+            --resource-group ${{ env.AZURE_RESOURCEGROUP_NAME }} \
+            --template-file deploy/main.bicep \
+            --parameters environmentType=${{ env.ENVIRONMENT_TYPE }}
 
   deploy:
     runs-on: ubuntu-latest
