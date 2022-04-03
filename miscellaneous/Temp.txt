@@ -9,7 +9,7 @@ $servicePrincipal = New-AzADServicePrincipal `
 -Scope $resourceGroupId
 
 $output = @{
-   clientId = $($servicePrincipal.ApplicationId)
+   clientId = (Get-AzADServicePrincipal -DisplayName ToyWebsiteWorkflow).AppId
    clientSecret = $([System.Net.NetworkCredential]::new('', $servicePrincipal.Secret).Password)
    subscriptionId = $($azureContext.Subscription.Id)
    tenantId = $($azureContext.Tenant.Id)
@@ -18,7 +18,9 @@ $output | ConvertTo-Json
 
 {
   "tenantId": "dcde8d90-9fa8-4b27-bf98-7789b7cfd18a",
-  "clientSecret": "",
-  "clientId": null,
+  "clientSecret": "Cku7Q~QcW702R4za9CXlmUcK4cv_uKddTkiWt",
+  "clientId": 09d65310-83e3-402c-a28e-b45c290cb1ba,
   "subscriptionId": "326d4d2f-4870-45f2-b2d7-feca7a38b1e9"
 }
+
+Cku7Q~QcW702R4za9CXlmUcK4cv_uKddTkiWt
