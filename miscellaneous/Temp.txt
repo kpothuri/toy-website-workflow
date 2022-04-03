@@ -7,6 +7,7 @@ $servicePrincipal = New-AzADServicePrincipal `
 -DisplayName ToyWebsiteWorkflow `
 -Role Contributor `
 -Scope $resourceGroupId
+-Sdk-auth
 
 $output = @{
    clientId = (Get-AzADServicePrincipal -DisplayName ToyWebsiteWorkflow).AppId
@@ -24,3 +25,5 @@ $output | ConvertTo-Json
 }
 
 Cku7Q~QcW702R4za9CXlmUcK4cv_uKddTkiWt
+
+"1a8b941f-af88-4826-9f5d-c3026dec8ead"
