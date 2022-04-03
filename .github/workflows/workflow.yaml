@@ -9,6 +9,8 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    container:
+      image: bitnami/azure-cli
     steps:
     - uses: actions/checkout@v2
     - uses: azure/login@v1
