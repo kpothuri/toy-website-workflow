@@ -27,3 +27,26 @@ $output | ConvertTo-Json
 Cku7Q~QcW702R4za9CXlmUcK4cv_uKddTkiWt
 
 "1a8b941f-af88-4826-9f5d-c3026dec8ead"
+
+
+{
+  "clientId": "d91b3c37-68c2-4153-8317-838f254dce79",
+  "clientSecret": "Fws2sJHk40d-MrOwctpp98F-Zuow04FSaQ",
+  "subscriptionId": "326d4d2f-4870-45f2-b2d7-feca7a38b1e9",
+  "tenantId": "dcde8d90-9fa8-4b27-bf98-7789b7cfd18a",
+}
+
+{
+  "clientId": "d91b3c37-68c2-4153-8317-838f254dce79",
+  "clientSecret": "Fws2sJHk40d-MrOwctpp98F-Zuow04FSaQ",  
+  "subscriptionId": "326d4d2f-4870-45f2-b2d7-feca7a38b1e9",
+  "tenantId": "dcde8d90-9fa8-4b27-bf98-7789b7cfd18a",  
+  "activeDirectoryEndpointUrl": "https://login.microsoftonline.com",
+  "resourceManagerEndpointUrl": "https://management.azure.com/",
+  "activeDirectoryGraphResourceId": "https://graph.windows.net/",
+  "sqlManagementEndpointUrl": "https://management.core.windows.net:8443/",
+  "galleryEndpointUrl": "https://gallery.azure.com/",  
+  "managementEndpointUrl": "https://management.core.windows.net/"
+}
+
+az ad sp create-for-rbac --name ToyWebsiteWorkflow --role Contributor --scopes /subscriptions/326d4d2f-4870-45f2-b2d7-feca7a38b1e9/resourceGroups/ToyWebsite --sdk-auth
