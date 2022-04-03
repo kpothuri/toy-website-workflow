@@ -30,15 +30,15 @@ Cku7Q~QcW702R4za9CXlmUcK4cv_uKddTkiWt
 
 
 {
-  "clientId": "d91b3c37-68c2-4153-8317-838f254dce79",
-  "clientSecret": "3gGvxqM8LkeM~2qVI26OZQs13WuA_C0.Hu",
+  "clientId": "545fc0e5-9ef3-4f21-a69d-7891c1d8cf42",
+  "clientSecret": "2EJM~5qELRkKgZRps_uJBCx4nxdt9cO7op",
   "subscriptionId": "326d4d2f-4870-45f2-b2d7-feca7a38b1e9",
   "tenantId": "dcde8d90-9fa8-4b27-bf98-7789b7cfd18a"
 }
 
 {
-  "clientId": "d91b3c37-68c2-4153-8317-838f254dce79",
-  "clientSecret": "3gGvxqM8LkeM~2qVI26OZQs13WuA_C0.Hu",
+  "clientId": "545fc0e5-9ef3-4f21-a69d-7891c1d8cf42",
+  "clientSecret": "2EJM~5qELRkKgZRps_uJBCx4nxdt9cO7op",
   "subscriptionId": "326d4d2f-4870-45f2-b2d7-feca7a38b1e9",
   "tenantId": "dcde8d90-9fa8-4b27-bf98-7789b7cfd18a",
   "activeDirectoryEndpointUrl": "https://login.microsoftonline.com",
