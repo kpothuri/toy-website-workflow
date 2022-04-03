@@ -1,3 +1,4 @@
+  
 name: deploy-toy-website
 concurrency: toy-company
 
@@ -15,67 +16,63 @@ env:
     ENVIRONMENT: nonprod
 
 jobs:
-  Lint:
+  lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the Code
-        uses: actions/checkout@v2
-      - name: Run Bicep linter
-          run: bicep build ./deploy/main.bicep
+    - uses: actions/checkout@v2
+    - name: Run Bicep linter
+      run: bicep build deploy/main.bicep
 
-  Validate:
+  validate:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-      - name: Sign in to Azure
-        uses: azure/login@v1
-          with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: Run preflight validation
-        uses: azure/arm-deploy@v1
-          with:
-            deploymentName: ${{ github.run_number }}
-            resourceGroupName: ${{ env.AZURE_RESOURCEGROUP_NAME }}
-            template: ./deploy/main.bicep
-            parameters: environmentType=${{ env.ENVIRONMENT }}
-            deploymentMode: Validate
+    - uses: actions/checkout@v2
+    - uses: azure/login@v1
+      name: Sign in to Azure
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - uses: azure/arm-deploy@v1
+      name: Run preflight validation
+      with:
+        deploymentName: ${{ github.run_number }}
+        resourceGroupName: ${{ env.AZURE_RESOURCEGROUP_NAME }}
+        template: ./deploy/main.bicep
+        parameters: environmentType=${{ env.ENVIRONMENT }}
+        deploymentMode: Validate
 
-  Preview:
+  preview:
     runs-on: ubuntu-latest
-    needs: [Lint, Validate]
+    needs: [lint, validate]
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-      - name: Sign in to Azure
-        uses: azure/login@v1
-          with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: Run what-if
-        uses: Azure/cli@v1
-          with:
-            inlineScript: |
-              az deployment group what-if \
-                --resource-group ${{ env.AZURE_RESOURCEGROUP_NAME }} \
-                --template-file ./deploy/main.bicep \
-                --parameters environmentType=${{ env.ENVIRONMENT }}
+    - uses: actions/checkout@v2
+    - uses: azure/login@v1
+      name: Sign in to Azure
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - uses: Azure/powershell@v1
+      name: Run what-if
+      with:
+        inlineScript: |
+          az deployment group what-if \
+            --resource-group ${{ env.AZURE_RESOURCEGROUP_NAME }} \
+            --template-file deploy/main.bicep \
+            --parameters environmentType=${{ env.ENVIRONMENT }}
 
-  Deploy:
+  deploy:
     runs-on: ubuntu-latest
     environment: Website
-    needs: Preview
+    needs: preview
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v2
-      - name: Sign in to Azure
-        uses: azure/login@v1
-          with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
-      - name: Deploy website
-        uses: azure/arm-deploy@v1
-          with:
-            failOnStdErr: false
-            deploymentName: ${{ github.run_number }}
-            resourceGroupName: ${{ env.AZURE_RESOURCEGROUP_NAME }}
-            template: ./deploy/main.bicep
-            parameters: environmentType=${{ env.ENVIRONMENT }}
+    - uses: actions/checkout@v2
+    - uses: azure/login@v1
+      name: Sign in to Azure
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    - uses: azure/arm-deploy@v1
+      name: Deploy website
+      with:
+        failOnStdErr: false
+        deploymentName: ${{ github.run_number }}
+        resourceGroupName: ${{ env.AZURE_RESOURCEGROUP_NAME }}
+        template: ./deploy/main.bicep
+        parameters: environmentType=${{ env.ENVIRONMENT }}
